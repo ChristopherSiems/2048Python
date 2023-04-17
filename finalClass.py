@@ -1,9 +1,8 @@
 import random
 
 class App2048:
-    
     def __init__(self): #initializing board
-        self.board = [[0] * 4] * 4
+        self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4] 
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[1][0]} {self.board[2][0]} {self.board[3][0]}
@@ -19,20 +18,19 @@ class App2048:
     def step(self):
         assigned = False
         while not assigned:
-            x = random.randint(0, 3)
-            y = random.randint(0, 3)
-            print(x)
-            print(y)
+            x = random.randrange(0, 4)
+            y = random.randrange(0, 4)
             if self.board[x][y] == 0:
                 self.board[x][y] = random.choice(2,4)
                 assigned = True
 
     '''def up(self):
         for ix, column in enumerate(self.board):
-            for iy, num in enumerate(column):
-                if iy != 0:
-                    for other in column[:iy:-1]:
-                        if num == other:'''
+            for iy, item in enumerate(column):
+                if item != 0:'''
+                    
+
+
 
     '''def right(self):
         for column in range(4):
