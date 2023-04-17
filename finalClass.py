@@ -21,13 +21,19 @@ class App2048:
             x = random.randrange(0, 4)
             y = random.randrange(0, 4)
             if self.board[x][y] == 0:
-                self.board[x][y] = random.choice(2,4)
+                self.board[x][y] = random.choice(2, 4)
                 assigned = True
 
-    '''def up(self):
+    def up(self):
         for ix, column in enumerate(self.board):
             for iy, item in enumerate(column):
-                if item != 0:'''
+                if item != 0:
+                    if 0 <= iy - 1 < len(column):
+                        if item == self.board[ix][iy - 1]:
+                            self.board[ix][iy - 1] = item * 2
+                        else:
+
+
                     
 
 
