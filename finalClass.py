@@ -3,7 +3,7 @@ import random
 class App2048:
     
     def __init__(self): #initializing board
-        self.board = [[0] * 4] * 4
+        self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4] 
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[1][0]} {self.board[2][0]} {self.board[3][0]}
@@ -21,8 +21,6 @@ class App2048:
         while not assigned:
             x = random.randrange(0, 4)
             y = random.randrange(0, 4)
-            print(x)
-            print(y)
             if self.board[x][y] == 0:
                 self.board[x][y] = 2
                 assigned = True
