@@ -15,7 +15,7 @@ class App2048:
     def define(self, b):
         self.board = b
     
-    def step(self):
+    def pickTwoOrFour(self):
         assigned = False
         while not assigned:
             x = random.randrange(0, 4)
@@ -32,12 +32,14 @@ class App2048:
 
 
 
-    '''def right(self):
-        for column in range(4):
-            for row in range(4):
-                if self.board[row][column] == 0:
-                    for num in range(row,-1):
-                        if num != 0:'''
+    def rightMove(self):
+        for row in range(4):
+            for column in range(3,0,-1):
+                if self.board[row][column] == self.board[row][column - 1] and self.board[row][column] != 0:
+                    self.board[row][column] *= 2
+                    self.board[row][column - 1] = 0
+                    column = 0
+
 
 game1 = App2048()
 print(game1)
