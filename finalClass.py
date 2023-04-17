@@ -30,12 +30,9 @@ class App2048:
                 if item != 0:
                     if 0 <= iy - 1 < len(column):
                         if item == self.board[ix][iy - 1]:
-                            self.board[ix][iy - 1] = item * 2
+                            self.board[ix][iy - 1] *= 2
                         else:
-
-
-                    
-
+                            
 
 
     def rightMove(self):
