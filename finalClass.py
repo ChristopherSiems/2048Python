@@ -1,7 +1,6 @@
 import random
 
 class App2048:
-    
     def __init__(self): #initializing board
         self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4] 
 
@@ -25,12 +24,13 @@ class App2048:
                 self.board[x][y] = 2
                 assigned = True
 
-    '''def up(self):
+    def up(self):
         for ix, column in enumerate(self.board):
-            for iy, num in enumerate(column):
-                if iy != 0:
-                    for other in column[:iy:-1]:
-                        if num == other:'''
+            for iy, item in enumerate(column):
+                if item != 0:
+                    
+
+
 
     '''def right(self):
         for column in range(4):
