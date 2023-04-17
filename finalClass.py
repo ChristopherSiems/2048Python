@@ -19,12 +19,12 @@ class App2048:
     def step(self):
         assigned = False
         while not assigned:
-            x = random.randrange(0, 4)
-            y = random.randrange(0, 4)
+            x = random.randint(0, 3)
+            y = random.randint(0, 3)
             print(x)
             print(y)
             if self.board[x][y] == 0:
-                self.board[x][y] = 2
+                self.board[x][y] = random.choice(2,4)
                 assigned = True
 
     '''def up(self):
