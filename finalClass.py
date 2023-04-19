@@ -8,16 +8,16 @@ class App2048:
         self.status = 'Keep Playing'
 
     def preGameSetUp(self):
-        #creats the 2 random '2's for the start of the game
+        #creates the 2 random '2's for the start of the game
         i = 0
         while i < 2:
             x = random.randrange(0,4)
             y = random.randrange(0,4)
             if self.board[x][y] == 0:
-                continue
-            else:
                 self.board[x][y] = 2
                 i += 1
+            else:
+                continue
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[1][0]} {self.board[2][0]} {self.board[3][0]}
@@ -96,10 +96,10 @@ class App2048:
 game1 = App2048()
 game1.preGameSetUp()
 print(game1)
-game1.upMove()
+'''game1.upMove()
 print(game1)
 game1.pickTwoOrFour()
 print(game1)
 game1.rightMove()
 print(game1)
-game1.pickTwoOrFour()
+game1.pickTwoOrFour()'''
