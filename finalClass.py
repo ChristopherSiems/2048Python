@@ -84,8 +84,8 @@ class App2048:
     def rightMove(self):
         for ix, column in enumerate(self.board):
             for iy, item in enumerate(column):
-                if 0 <= (ix - 1) and item != 0:
-                    if self.boarf[ix + 1][iy] == 0:
+                if 3 >= (ix + 1) and item != 0:
+                    if self.board[ix + 1][iy] == 0:
                         self.board[ix + 1][iy] = item
                         item = 0
                     elif item == self.board[ix + 1][iy]:
@@ -96,10 +96,10 @@ class App2048:
 game1 = App2048()
 game1.preGameSetUp()
 print(game1)
-'''game1.upMove()
+game1.upMove()
 print(game1)
 game1.pickTwoOrFour()
 print(game1)
 game1.rightMove()
 print(game1)
-game1.pickTwoOrFour()'''
+game1.pickTwoOrFour()
