@@ -7,6 +7,18 @@ class App2048:
         self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4] 
         self.status = 'Keep Playing'
 
+    def preGameSetUp(self):
+        #creats the 2 random '2's for the start of the game
+        i = 0
+        while i < 2:
+            x = random.randrange(0,4)
+            y = random.randrange(0,4)
+            if self.board[x][y] == 0:
+                continue
+            else:
+                self.board[x][y] = 2
+                i += 1
+
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[1][0]} {self.board[2][0]} {self.board[3][0]}
 {self.board[0][1]} {self.board[1][1]} {self.board[2][1]} {self.board[3][1]} 
@@ -69,18 +81,25 @@ class App2048:
                         self.board[ix][iy - 1] = item
                         item = 0
 
-    '''def rightMove(self):
-        for row in range(4):
-            for column in range(3,0,-1):
-                if self.board[row][column] == self.board[row][column - 1] and self.board[row][column] != 0:
-                    self.board[row][column] *= 2
-                    self.board[row][column - 1] = 0
-                    column = 0'''
+    def rightMove(self):
+        for ix, column in enumerate(self.board):
+            for iy, item in enumerate(column):
+                if 0 <= (ix - 1) and item != 0:
+                    if self.boarf[ix + 1][iy] == 0:
+                        self.board[ix + 1][iy] = item
+                        item = 0
+                    elif item == self.board[ix + 1][iy]:
+                        self.board[ix+1][iy] *= 2
+                        item = 0
 
 
 game1 = App2048()
-print(game1)
-game1.pickTwoOrFour()
+game1.preGameSetUp()
 print(game1)
 game1.upMove()
 print(game1)
+game1.pickTwoOrFour()
+print(game1)
+game1.rightMove()
+print(game1)
+game1.pickTwoOrFour()
