@@ -13,17 +13,17 @@ class App2048:
         while i < 2:
             x = random.randrange(0,4)
             y = random.randrange(0,4)
-            if self.board[x][y] == 0:
-                self.board[x][y] = 2
+            if self.board[y][x] == 0:
+                self.board[y][x] = 2
                 i += 1
             else:
                 continue
 
     def __repr__(self):
-        string = f'''{self.board[0][0]} {self.board[1][0]} {self.board[2][0]} {self.board[3][0]}
-{self.board[0][1]} {self.board[1][1]} {self.board[2][1]} {self.board[3][1]} 
-{self.board[0][2]} {self.board[1][2]} {self.board[2][2]} {self.board[3][2]}
-{self.board[0][3]} {self.board[1][3]} {self.board[2][3]} {self.board[3][3]}
+        string = f'''{self.board[0][0]} {self.board[0][1]} {self.board[0][2]} {self.board[0][3]}
+{self.board[1][0]} {self.board[1][1]} {self.board[1][2]} {self.board[1][3]} 
+{self.board[2][0]} {self.board[2][1]} {self.board[2][2]} {self.board[2][3]}
+{self.board[3][0]} {self.board[3][1]} {self.board[3][2]} {self.board[3][3]}
 '''
         return string
 
@@ -56,8 +56,7 @@ class App2048:
     #                return 'You Lose :('
     #            #If there is no merger but there are 0, then 
     #            else:
-    #                return 'Keep Playing'
-        
+    #                return 'Keep Playing'   
     
     def pickTwoOrFour(self):
         '''This function will automatically generate 
@@ -66,20 +65,25 @@ class App2048:
         while not assigned:
             x = random.randrange(0, 4)
             y = random.randrange(0, 4)
-            if self.board[x][y] == 0:
-                self.board[x][y] = random.choice((2, 4))
+            if self.board[y][x] == 0:
+                self.board[y][x] = random.choice((2, 4))
                 assigned = True
 
     def upMove(self):
-        for ix, column in enumerate(self.board):
-            for iy, item in enumerate(column):
-                if 0 <= (iy - 1) and item != 0:
-                    if item == self.board[ix][iy - 1]:
-                        self.board[ix][iy - 1] *= 2
-                        item = 0
-                    elif self.board[ix][iy - 1] == 0:
-                        self.board[ix][iy - 1] = item
-                        item = 0
+        for x in range(0, 4):
+            shift = 0
+            for y in range(0, 4):
+                if self.board[y][x] == 0:
+                    shift += 1
+                else:
+                    self.board[y - shift][x] = self.board[y][x]
+                    self.board[y][x] = 0
+        for x in range(0, 4):
+            for y in range(3, 1, -1):
+                print(self.board[y][x])
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y + 1][x]:
+                    self.board[y + 1][x] *= 2
+                    self.board[y][x] = 0
 
     def rightMove(self):
         for ix, column in enumerate(self.board):
@@ -93,7 +97,7 @@ class App2048:
                         item = 0
 
 
-game1 = App2048()
+'''game1 = App2048()
 game1.preGameSetUp()
 print(game1)
 game1.upMove()
@@ -102,4 +106,10 @@ game1.pickTwoOrFour()
 print(game1)
 game1.rightMove()
 print(game1)
-game1.pickTwoOrFour()
+game1.pickTwoOrFour()'''
+
+game = App2048()
+game.define([[0, 0, 0, 0], [0, 0, 0, 0], [0, 2, 0, 2], [0, 0, 0, 2]])
+print(game)
+game.upMove()
+print(game)
