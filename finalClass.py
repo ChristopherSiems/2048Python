@@ -21,11 +21,7 @@ class App2048:
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[0][1]} {self.board[0][2]} {self.board[0][3]}
-<<<<<<< Updated upstream
 {self.board[1][0]} {self.board[1][1]} {self.board[1][2]} {self.board[1][3]} 
-=======
-{self.board[1][0]} {self.board[1][0]} {self.board[1][2]} {self.board[1][3]} 
->>>>>>> Stashed changes
 {self.board[2][0]} {self.board[2][1]} {self.board[2][2]} {self.board[2][3]}
 {self.board[3][0]} {self.board[3][1]} {self.board[3][2]} {self.board[3][3]}
 '''
@@ -74,7 +70,6 @@ class App2048:
                 assigned = True
 
     def upMove(self):
-<<<<<<< Updated upstream
         for x in range(0, 4):
             shift = 0
             for y in range(0, 4):
@@ -89,17 +84,6 @@ class App2048:
                 if self.board[y][x] != 0 and self.board[y][x] == self.board[y + 1][x]:
                     self.board[y + 1][x] *= 2
                     self.board[y][x] = 0
-=======
-        for ix, column in enumerate(self.board):
-            for iy in range(len(column)):
-                if 0 <= (iy - 1) and item != 0:
-                    if item == self.board[ix][iy - 1]:
-                        self.board[ix][iy - 1] *= 2
-                        self.board[ix][iy] = 0
-                    elif self.board[ix][iy - 1] == 0:
-                        self.board[ix][iy - 1] = item
-                        self.board[ix][iy] = 0
->>>>>>> Stashed changes
 
     def rightMove(self):
         for ix, column in enumerate(self.board):
@@ -118,7 +102,7 @@ game1.preGameSetUp()
 print(game1)
 game1.upMove()
 print(game1)
-'''game1.pickTwoOrFour()
+game1.pickTwoOrFour()
 print(game1)
 game1.rightMove()
 print(game1)
