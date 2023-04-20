@@ -43,21 +43,21 @@ class App2048:
                 assigned = True
 
     def upMove(self):
-        # '''this function will move'''
-        # for x in range(0, 4):
-        #     shift = 0
-        #     for y in range(0, 4):
-        #         if self.board[y][x] == 0:
-        #             shift += 1
-        #         else:
-        #             self.board[y - shift][x] = self.board[y][x]
-        #             self.board[y][x] = 0
-        # for x in range(0, 4):
-        #     for y in range(3, 1, -1):
-        #         # print(self.board[y][x])
-        #         if self.board[y][x] != 0 and self.board[y][x] == self.board[y + 1][x]:
-        #             self.board[y + 1][x] *= 2
-        #             self.board[y][x] = 0
+        '''this function will move'''
+        for x in range(0, 4):
+            shift = 0
+            for y in range(0, 4):
+                if self.board[y][x] == 0:
+                    shift += 1
+                else:
+                    self.board[y - shift][x] = self.board[y][x]
+                    self.board[y][x] = 0
+        for x in range(0, 4):
+            for y in range(3, 1, -1):
+                # print(self.board[y][x])
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y + 1][x]:
+                    self.board[y + 1][x] *= 2
+                    self.board[y][x] = 0
 
     def downMove(self):
         for ix, column in enumerate(self.board):
