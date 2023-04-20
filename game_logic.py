@@ -3,7 +3,6 @@ import random
 class App2048:
     def __init__(self): #initializing board
         self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4] 
-        self.status = 'Keep Playing'
 
     def preGameSetUp(self):
         #creates the 2 random '2's for the start of the game
