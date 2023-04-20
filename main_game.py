@@ -1,5 +1,7 @@
 import game_logic
 from game_logic import App2048
+import pygame
+from pygame.locals import *
 
 '''currently using this for logic testing but later this will be 
 where we initialize the game and actually play the game'''
@@ -16,7 +18,3 @@ def movingUp():
 def movingDown():
     game1.downMove()
     game1.pickTwoOrFour()
-
-startGame()
-movingUp()
-movingDown()

@@ -1,6 +1,4 @@
 import random
-import pygame
-from pygame.locals import *
 
 class App2048:
     def __init__(self): #initializing board
@@ -43,12 +41,14 @@ class App2048:
                 assigned = True
 
     def upMove(self):
-        '''this function will move'''
+        '''this function will move up'''
         for x in range(0, 4):
             shift = 0
             for y in range(0, 4):
                 if self.board[y][x] == 0:
                     shift += 1
+                elif shift == 0:
+                    continue
                 else:
                     self.board[y - shift][x] = self.board[y][x]
                     self.board[y][x] = 0
@@ -59,6 +59,7 @@ class App2048:
                     self.board[y][x] = 0
 
     def downMove(self):
+        '''this function goes down'''
         for ix, column in enumerate(self.board):
             for iy, item in enumerate(column):
                 if 3 >= (ix + 1) and self.board[ix][iy] != 0:
@@ -68,21 +69,10 @@ class App2048:
                     elif self.board[ix][iy] == self.board[ix + 1][iy]:
                         self.board[ix + 1][iy] *= 2
                         self.board[ix][iy] = 0
-            
-        # '''this function will move dowm'''
-        # for x in range(0,4):
-        #     shift = 0
-        #     for y in range(0, 4):
-        #         if self.board[x + 1][y] == 0:
-        #             shift += 1
-        #         elif self.board[x + 1][y] == self.board[x][y]:
-        #             self.board[x + 1][y] *= 2
-        #             self.board[x][y] = 0
-        #         else:
-        #             self.board[x + shift][y] = self.board[x][y]
-        #             self.board[x][y] = 0
+
     
     def leftMove(self):
+        '''this function goes left'''
         for ix, column in enumerate(self.board):
             for iy, item in enumerate(column):
                 if 0 <= (iy - 1) and self.board[ix][iy] != 0:
@@ -92,18 +82,19 @@ class App2048:
                     elif self.board[ix][iy] == self.board[ix][iy - 1]:
                         self.board[ix][iy - 1] *= 2
                         self.board[ix][iy] = 0
-        # '''this function will move left'''
-        # for y in range(0, 4):
-        #     shift = 0
-        #     for x in range(0, 4):
-        #         if self.board[x][y - 1] == 0:
-        #             shift += 1
-        #         elif self.board[x][y - 1] == self.board[x][y]:
-        #             self.board[x][y - 1] *= 2
-        #             self.board[x][y] = 0
-        #         else:
-        #             self.board[x][y - 1] = self.board[x][y]
-        #             self.board[x][y] = 0
+    
+
+    def rightMove(self):
+        '''this function goes left'''
+        for ix, column in enumerate(self.board):
+            for iy, item in enumerate(column):
+                if 0 <= (iy - 1) and self.board[ix][iy] != 0:
+                    if self.board[ix][iy - 1] == 0:
+                        self.board[ix][iy - 1] = self.board[ix][iy]
+                        self.board[ix][iy] = 0
+                    elif self.board[ix][iy] == self.board[ix][iy - 1]:
+                        self.board[ix][iy - 1] *= 2
+                        self.board[ix][iy] = 0
                 
         
 
