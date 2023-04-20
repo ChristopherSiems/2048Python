@@ -87,13 +87,13 @@ class App2048:
     def rightMove(self):
         '''this function goes left'''
         for ix, column in enumerate(self.board):
-            for iy, item in enumerate(column):
-                if 0 <= (iy - 1) and self.board[ix][iy] != 0:
-                    if self.board[ix][iy - 1] == 0:
-                        self.board[ix][iy - 1] = self.board[ix][iy]
+            for iy in range(0,3, -1):
+                if 3 >= (iy + 1) and self.board[ix][iy] != 0:
+                    if self.board[ix][iy + 1] == 0:
+                        self.board[ix][iy + 1] = self.board[ix][iy]
                         self.board[ix][iy] = 0
-                    elif self.board[ix][iy] == self.board[ix][iy - 1]:
-                        self.board[ix][iy - 1] *= 2
+                    elif self.board[ix][iy] == self.board[ix][iy + 1]:
+                        self.board[ix][iy + 1] *= 2
                         self.board[ix][iy] = 0
                 
         
@@ -120,5 +120,9 @@ game1.pickTwoOrFour()
 print(f'pick two or four: \n{game1}')
 game1.upMove()
 print(f'up move: \n{game1}')
+game1.pickTwoOrFour()
+print(f'pick two or four: \n{game1}')
+game1.rightMove()
+print(f'right move: \n{game1}')
 game1.pickTwoOrFour()
 print(f'pick two or four: \n{game1}')
