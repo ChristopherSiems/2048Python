@@ -79,10 +79,9 @@ class App2048:
                     self.board[y - shift][x] = self.board[y][x]
                     self.board[y][x] = 0
         for x in range(0, 4):
-            for y in range(3, 1, -1):
-                print(self.board[y][x])
-                if self.board[y][x] != 0 and self.board[y][x] == self.board[y + 1][x]:
-                    self.board[y + 1][x] *= 2
+            for y in range(3, 0, -1):
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y - 1][x]:
+                    self.board[y - 1][x] *= 2
                     self.board[y][x] = 0
 
     def rightMove(self):
