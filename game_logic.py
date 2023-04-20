@@ -58,43 +58,69 @@ class App2048:
                     self.board[y - 1][x] *= 2
                     self.board[y][x] = 0
 
-    def downMove(self):
-        '''this function goes down'''
-        for ix, column in enumerate(self.board):
-            for iy, item in enumerate(column):
-                if 3 >= (ix + 1) and self.board[ix][iy] != 0:
-                    if self.board[ix + 1][iy] == 0:
-                        self.board[ix + 1][iy] = self.board[ix][iy]
-                        self.board[ix][iy] = 0
-                    elif self.board[ix][iy] == self.board[ix + 1][iy]:
-                        self.board[ix + 1][iy] *= 2
-                        self.board[ix][iy] = 0
+    def downMove(self):   
+        '''this function will move up'''
+        for x in range(0, 4):
+            shift = 0
+            for y in range(3, -1, -1):
+                if self.board[y][x] == 0 and y == 0:
+                    self.board[y + shift][x] = self.board[y][x]
+                    self.board[y][x] = 0
+                elif self.board[y][x] == 0:
+                    shift += 1
+                elif shift == 0:
+                    continue
+                else:
+                    self.board[y + shift][x] = self.board[y][x]
+                    self.board[y][x] = 0
+        for x in range(0, 4):
+            for y in range(3, -1, -1):
+                if y == 3:
+                    if self.board[y][x] != 0 and self.board[y][x] == self.board[2][x]:
+                        self.board[y][x] *= 2
+                        self.board[2][x] = 0
+                elif self.board[y][x] != 0 and self.board[y][x] == self.board[y + 1][x]:
+                    self.board[y + 1][x] *= 2
+                    self.board[y][x] = 0
 
     
     def leftMove(self):
-        '''this function goes left'''
-        for ix, column in enumerate(self.board):
-            for iy, item in enumerate(column):
-                if 0 <= (iy - 1) and self.board[ix][iy] != 0:
-                    if self.board[ix][iy - 1] == 0:
-                        self.board[ix][iy - 1] = self.board[ix][iy]
-                        self.board[ix][iy] = 0
-                    elif self.board[ix][iy] == self.board[ix][iy - 1]:
-                        self.board[ix][iy - 1] *= 2
-                        self.board[ix][iy] = 0
+        '''this function will move up'''
+        for y in range(0,4):
+            shift = 0
+            for x in range(0, 4):
+                if self.board[y][x] == 0:
+                    shift += 1
+                elif shift == 0:
+                    continue
+                else:
+                    self.board[y][x - shift] = self.board[y][x]
+                    self.board[y][x] = 0
+        for y in range(0,4):
+            for x in range(0,4):
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y][x + 1]:
+                    self.board[y][x] *= 2
+                    self.board[y][x + 1] = 0
     
 
     def rightMove(self):
         '''this function goes left'''
-        for ix, column in enumerate(self.board):
-            for iy in range(0,3, -1):
-                if 3 >= (iy + 1) and self.board[ix][iy] != 0:
-                    if self.board[ix][iy + 1] == 0:
-                        self.board[ix][iy + 1] = self.board[ix][iy]
-                        self.board[ix][iy] = 0
-                    elif self.board[ix][iy] == self.board[ix][iy + 1]:
-                        self.board[ix][iy + 1] *= 2
-                        self.board[ix][iy] = 0
+        for y in range(3, 0,-1):
+            shift = 0
+            for x in range(3,-1, -1):
+                if self.board[y][x] == 0:
+                    shift += 1
+                elif shift == 0:
+                    continue
+                else:
+                    self.board[y][x + shift] = self.board[y][x]
+                    self.board[y][x] = 0
+                    if self.board[y][x-1] != 0 and x >= 0:
+                        self.board[y][x + shift - 1] = self.board[y][x - 1]
+                        self.board[y][x - 1] = 0
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y - 1][x]:
+                    self.board[y - 1][x] *= 2
+                    self.board[y][x] = 0
                 
         
 
