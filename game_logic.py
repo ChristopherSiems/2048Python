@@ -96,8 +96,6 @@ class App2048:
                 else:
                     self.board[y][x - shift] = self.board[y][x]
                     self.board[y][x] = 0
-        for y in range(0,4):
-            for x in range(0,4):
                 if self.board[y][x] != 0 and self.board[y][x] == self.board[y][x + 1]:
                     self.board[y][x] *= 2
                     self.board[y][x + 1] = 0
