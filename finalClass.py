@@ -88,13 +88,13 @@ class App2048:
     def rightMove(self):
         for ix, column in enumerate(self.board):
             for iy, item in enumerate(column):
-                if 3 >= (ix + 1) and item != 0:
+                if 3 >= (ix + 1) and self.board[ix][iy] != 0:
                     if self.board[ix + 1][iy] == 0:
-                        self.board[ix + 1][iy] = item
-                        item = 0
+                        self.board[ix + 1][iy] = self.board[ix][iy]
+                        self.board[ix][iy] = 0
                     elif item == self.board[ix + 1][iy]:
-                        self.board[ix+1][iy] *= 2
-                        item = 0
+                        self.board[ix + 1][iy] *= 2
+                        self.board[ix][iy] = 0
 
 
 '''game1 = App2048()
