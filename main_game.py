@@ -28,13 +28,11 @@ def newGame():
 
 '''creating a function that updates the display after every move. There will be some animations using sprite module in python'''
 def display(boardnum):
-
     board_copy = boardnum.copy()
     #creates background for game, box size per cube, and gets the padding from that json file
     screen.fill(tuple(formats["colors"]["background"]))
     box = formats["size"] // 4
     padding = formats["padding"]
-
     #creating the box for each cube, filling it with the color based on the rgb values from json file
     for y in range(4):
         for x in range(4):
@@ -43,27 +41,24 @@ def display(boardnum):
                                              y * box + padding,
                                              box - 2 * padding,
                                              box - 2 * padding), 0)
-            
             if boardnum.board[y][x] == 0:
                 text_color = color
             elif boardnum.board[y][x] in (2,4):
                 text_color = tuple((160,160,160))
             else:
                 text_color = tuple((255,255,255))
-            
             screen.blit(my_font.render('{:>4}'.format(boardnum.board[y][x]), 1, text_color), (x * box + 5 * padding, y * box + 14 * padding))
     pygame.display.update()
 
 def playGame():
-     while True:
-         for event in pygame.event.get():
-            if event.type == QUIT or (event.type == pygame.KEYDOWN and event.key == K_q):
-                pygame.quit()
-                sys.exit()
-            
+    while True:
+        for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if str(event.key) not in formats['buttons']:
-                    return "please type a valid key"
+                if str(event.key) == '''q''':
+                    pygame.quit()
+                    sys.exit()
+                #elif str(event.key) not in formats['buttons']:
+                #    return "please type a valid key"
                 else:
                     key = formats['buttons'][str(event.key)]
                     if key == 'w':
@@ -78,13 +73,14 @@ def playGame():
                     elif key == 'd':
                         game1.fullRight()
                         display(game1)
-                
                 #checking status of the game
                 if game1.check():
                     game1.pickTwoOrFour()
                 else:
-                    pygame.draw.rect(screen, (255, 204, 153),  )
-
+                    #pygame.draw.rect(screen, (255, 204, 153), (200, 200, 400, 200), 0)
+                    pygame.quit()
+                    sys.exit()
+                display(game1)
 
 if __name__ == '__main__':
     json.load(open('formats.json', mode = 'r'))
@@ -92,6 +88,3 @@ if __name__ == '__main__':
     pygame.init()
     newGame()
     playGame()
-
-
-            
