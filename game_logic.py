@@ -115,9 +115,13 @@ class App2048:
         self.upMove()
         self.upMove()
         self.upMove()
+        self.upMove()
+        self.upMove()
         self.pickTwoOrFour()
     
     def fullDown(self):
+        self.downMove()
+        self.downMove()
         self.downMove()
         self.downMove()
         self.downMove()
@@ -127,9 +131,13 @@ class App2048:
         self.leftMove()
         self.leftMove()
         self.leftMove()
+        self.leftMove()
+        self.leftMove()
         self.pickTwoOrFour()
     
     def fullRight(self):
+        self.rightMove()
+        self.rightMove()
         self.rightMove()
         self.rightMove()
         self.rightMove()
