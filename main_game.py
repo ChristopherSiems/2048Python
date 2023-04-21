@@ -6,22 +6,36 @@ from pygame.locals import *
 
 # set up pygame for main gameplay
 pygame.init()
+
+#this file contains all the formats, font, and colors for 
+#the game in a dictionary in a json file
 file = open("formats.json", mode = "r")
 formats = json.load(file)
+
+#setting up the screen and font for the game, creating the main board
 screen = pygame.display.set_mode((formats["size"], formats["size"]))
 my_font = pygame.font.SysFont(formats["font"], formats["font_size"], bold=True)
 
-
+'''whenever the code is run and this function is called
+there will be a new game'''
 def newGame():
+    #creating a global variable for the board that we can call anywhere in the code
+    #this variable is an object in the App2048 class that can be modified
     global game1
     game1 = App2048()
     game1.preGameSetUp()
     display(game1)
 
+'''creating a function that updates the display after every move. There will be some animations using sprite module in python'''
 def display(boardnum):
+
+    board_copy = boardnum.copy()
+    #creates background for game, box size per cube, and gets the padding from that json file
     screen.fill(tuple(formats["colors"]["background"]))
     box = formats["size"] // 4
     padding = formats["padding"]
+
+    #creating the box for each cube, filling it with the color based on the rgb values from json file
     for y in range(4):
         for x in range(4):
             color = tuple(formats["colors"][str(boardnum.board[y][x])])
@@ -29,6 +43,7 @@ def display(boardnum):
                                              y * box + padding,
                                              box - 2 * padding,
                                              box - 2 * padding), 0)
+            
             if boardnum.board[y][x] == 0:
                 text_color = color
             elif boardnum.board[y][x] in (2,4):

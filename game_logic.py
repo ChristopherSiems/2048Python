@@ -15,6 +15,10 @@ class App2048:
     def define(self, b):
         self.board = b
     
+    def copy(self):
+        new_board = App2048()
+        return new_board
+    
     def preGameSetUp(self):
         #creates the 2 random '2's for the start of the game
         i = 0
@@ -145,46 +149,5 @@ class App2048:
         self.rightMove()
 
                 
-'''game1 = App2048()
-game1.preGameSetUp()
-print(f'pregame set up: \n{game1}')
-game1.upMove()
-print(f'up move: \n{game1}')
-game1.pickTwoOrFour()
-print(f'pick two or four: \n{game1}')
-game1.downMove()
-print(f'down move: \n{game1}')
-game1.pickTwoOrFour()
-print(f'pick two or four: \n{game1}')
-game1.leftMove()
-print(f'left move: \n{game1}')
-game1.pickTwoOrFour()
-print(f'pick two or four: \n{game1}')
-game1.downMove()
-print(f'down move: \n{game1}')
-game1.pickTwoOrFour()
-print(f'pick two or four: \n{game1}')
-game1.upMove()
-print(f'up move: \n{game1}')
-game1.pickTwoOrFour()
-print(f'pick two or four: \n{game1}')
-game1.rightMove()
-print(f'right move: \n{game1}')
-game1.pickTwoOrFour()
-print(f'pick two or four: \n{game1}')'''
 
-'''game = App2048()
-game.define([[0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2]])
-print(game)
-game.fullUp()
-print(game)
-game.define([[0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2]])
-game.fullDown()
-print(game)
-game.define([[0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2]])
-game.fullLeft()
-print(game)
-game.define([[0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2], [0, 0, 0, 2]])
-game.fullRight()
-print(game)'''
 
