@@ -57,7 +57,9 @@ def playGame():
                         game1.fullRight()
                 
                 #checking status of the game
-       
+                if game1.check():
+                    game1.pickTwoOrFour()
+
 
 
             

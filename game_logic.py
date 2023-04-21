@@ -122,8 +122,6 @@ class App2048:
         self.upMove()
         self.upMove()
         self.upMove()
-        if self.check():
-            self.pickTwoOrFour()
     
     def fullDown(self):
         self.downMove()
@@ -131,17 +129,13 @@ class App2048:
         self.downMove()
         self.downMove()
         self.downMove()
-        if self.check():
-            self.pickTwoOrFour()
-    
+
     def fullLeft(self):
         self.leftMove()
         self.leftMove()
         self.leftMove()
         self.leftMove()
         self.leftMove()
-        if self.check():
-            self.pickTwoOrFour()
     
     def fullRight(self):
         self.rightMove()
@@ -149,8 +143,6 @@ class App2048:
         self.rightMove()
         self.rightMove()
         self.rightMove()
-        if self.check():
-            self.pickTwoOrFour()
 
                 
 '''game1 = App2048()
