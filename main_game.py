@@ -18,21 +18,21 @@ def newGame():
     game1.preGameSetUp()
     display(game1)
 
-def display(board):
+def display(boardnum):
     screen.fill(tuple(formats["colors"]["background"]))
     box = formats["size"] // 4
     padding = formats["padding"]
     for i in range(4):
         for j in range(4):
-            color = tuple(formats["colors"][str(game1.board[i][j])])
+            color = tuple(formats["colors"][str(boardnum.board[i][j])])
             pygame.draw.rect(screen, color, (j * box + padding,
                                              i * box + padding,
                                              box - 2 * padding,
                                              box * 2 - padding), 0)
-            if game1.board[i][j] == 0:
+            if boardnum.board[i][j] == 0:
                 text_color = tuple(formats["colors"]["0"])
             
-            screen.blit(my_font.render('{:>4}'.format(game1.board[i][j]), 1, text_color), (j * box + 5 * padding, i * box + 14 * padding))
+            screen.blit(my_font.render('{:>4}'.format(boardnum.board[i][j]), 1, text_color), (j * box + 5 * padding, i * box + 14 * padding))
     pygame.display.update()
 
 def playGame():
