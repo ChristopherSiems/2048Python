@@ -22,17 +22,21 @@ def display(boardnum):
     screen.fill(tuple(formats["colors"]["background"]))
     box = formats["size"] // 4
     padding = formats["padding"]
-    for i in range(4):
-        for j in range(4):
-            color = tuple(formats["colors"][str(boardnum.board[i][j])])
-            pygame.draw.rect(screen, color, (j * box + padding,
-                                             i * box + padding,
+    for y in range(4):
+        for x in range(4):
+            color = tuple(formats["colors"][str(boardnum.board[y][x])])
+            pygame.draw.rect(screen, color, (x * box + padding,
+                                             y * box + padding,
                                              box - 2 * padding,
-                                             box * 2 - padding), 0)
-            if boardnum.board[i][j] == 0:
-                text_color = tuple(formats["colors"]["0"])
+                                             box - 2 * padding), 0)
+            if boardnum.board[y][x] == 0:
+                text_color = color
+            elif boardnum.board[y][x] in (2,4):
+                text_color = tuple((160,160,160))
+            else:
+                text_color = tuple((255,255,255))
             
-            screen.blit(my_font.render('{:>4}'.format(boardnum.board[i][j]), 1, text_color), (j * box + 5 * padding, i * box + 14 * padding))
+            screen.blit(my_font.render('{:>4}'.format(boardnum.board[y][x]), 1, text_color), (x * box + 5 * padding, y * box + 14 * padding))
     pygame.display.update()
 
 def playGame():
@@ -63,6 +67,8 @@ def playGame():
                 #checking status of the game
                 if game1.check():
                     game1.pickTwoOrFour()
+                else:
+                    pygame.draw.rect(screen, (255, 204, 153),  )
 
 
 if __name__ == '__main__':
