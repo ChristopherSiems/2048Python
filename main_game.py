@@ -1,8 +1,6 @@
 from game_logic import App2048
 import sys
-
 import json
-
 import pygame
 from pygame.locals import *
 
@@ -12,7 +10,6 @@ c = json.load(open("formats.json", "r"))
 screen = pygame.display.set_mode((c["size"], c["size"]))
 my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
 WHITE = (255, 255, 255)
-
 
 def newGame():
     global game1
