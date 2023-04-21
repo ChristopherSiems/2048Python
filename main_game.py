@@ -15,7 +15,9 @@ WHITE = (255, 255, 255)
 
 
 def newGame():
+    global game1
     game1 = App2048()
+    game1.preGameSetUp()
     display(game1)
 
 def display(board):
@@ -42,4 +44,23 @@ def playGame():
             if event.type == QUIT or (event.type == pygame.KEYDOWN and event.key == K_q):
                 pygame.quit()
                 sys.exit()
+            
+            if event.type == pygame.KEYDOWN:
+                if str(event.key) not in c['buttons']:
+                    return "please type a valid key"
+                else:
+                    key = c['buttons'][str(event.key)]
+                    if key == 'w':
+                        game1.fullUp()
+                    elif key == 'a':
+                        game1.fullLeft()
+                    elif key == 's':
+                        game1.fullDown()
+                    elif key == 'd':
+                        game1.fullRight()
+                
+                #checking status of the game
+                if 
+
+
             

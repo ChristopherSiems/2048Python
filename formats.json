@@ -24,7 +24,7 @@
 			"2048": [237, 194, 46]
 	},
 
-	"keys": {
+	"buttons": {
 		"_comment": "Arrow keys/WASD are valid moves...",
 		"273": "w", "119": "w",
 		"274": "s", "115": "s",

@@ -134,6 +134,7 @@ class App2048:
         self.rightMove()
         self.rightMove()
         self.pickTwoOrFour()
+    
                 
 '''game1 = App2048()
 game1.preGameSetUp()
