@@ -42,10 +42,11 @@ class App2048:
                 self.board[y][x] = random.choice((2, 4))
                 assigned = True
     
-    def check(self, other):
+    def check(self):
         for y in range(0,4):
             for x in range(0,4):
-                if self.board[y][x] == 
+                if self.board[y][x] == self.board[y + 1] or self.board[y][x] == self.board[y][x + 1]:
+                    return True
         for y in range(0, 4):
             if 0 in self.board[y]:
                 return True

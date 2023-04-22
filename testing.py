@@ -8,6 +8,7 @@ class App2048:
 {self.board[2][0]} {self.board[2][1]} {self.board[2][2]} {self.board[2][3]}
 {self.board[3][0]} {self.board[3][1]} {self.board[3][2]} {self.board[3][3]}
 '''
+
         return string
 
     def define(self, b):
@@ -18,13 +19,14 @@ class App2048:
         return new_board
 
 def copying(boardnum):
-    news_board = boardnum.copy()
+    new_board = boardnum.copy()
     print(boardnum)
-    print(news_board)
-    if news_board == boardnum:
+    print(new_board)
+    if new_board == boardnum:
         print('hi')
     else:
         print('balls')
 
 game1 = App2048()
-copying(game1)
+# copying(game1)
+game2 = game1.copy()
