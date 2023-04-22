@@ -1,14 +1,16 @@
 {
-	"size": 1000,
+	"size_x": 1000,
+	"size_y": 1300,
 	"padding": 5,
 	
 	"font": "Comic Sans",
-	"font_size": 60,
+	"game_font_size": 60,
+	"sidebar_font-size": 30,
     
 	
 		"colors": {
 			"background": [187, 173, 160],
-			
+			"text": [160, 160, 160],
 
 			"0": [205, 193, 180],
 			"2": [238, 228, 218],

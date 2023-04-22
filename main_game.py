@@ -6,6 +6,7 @@ from pygame.locals import *
 
 # set up pygame for main gameplay
 pygame.init()
+pygame.font.init()
 
 #this file contains all the formats, font, and colors for 
 #the game in a dictionary in a json file
@@ -13,8 +14,9 @@ file = open("formats.json", mode = "r")
 formats = json.load(file)
 
 #setting up the screen and font for the game, creating the main board
-screen = pygame.display.set_mode((formats["size"], formats["size"]))
-my_font = pygame.font.SysFont(formats["font"], formats["font_size"], bold=True)
+screen = pygame.display.set_mode((formats["size_y"], formats["size_x"]))
+my_font = pygame.font.SysFont(formats["game_font_size"], formats["font_size"], bold=True)
+sidebar_font = pygame.font.SysFont(formats["sidebar_font-size"], formats["font_size"], bold=True)
 
 '''whenever the code is run and this function is called
 there will be a new game'''
@@ -28,10 +30,11 @@ def newGame():
 
 '''creating a function that updates the display after every move. There will be some animations using sprite module in python'''
 def display(boardnum):
+    pygame.display.set_caption('2048 Game by Sai Chanda, Chris Siems,and Sam Szymanski')
     board_copy = boardnum.copy()
     #creates background for game, box size per cube, and gets the padding from that json file
     screen.fill(tuple(formats["colors"]["background"]))
-    box = formats["size"] // 4
+    box = formats["size_x"] // 4
     padding = formats["padding"]
     #creating the box for each cube, filling it with the color based on the rgb values from json file
     for y in range(4):
@@ -44,10 +47,22 @@ def display(boardnum):
             if boardnum.board[y][x] == 0:
                 text_color = color
             elif boardnum.board[y][x] in (2,4):
-                text_color = tuple((160,160,160))
+                text_color = formats["colors"]["text"]
             else:
                 text_color = tuple((255,255,255))
-            screen.blit(my_font.render('{:>4}'.format(boardnum.board[y][x]), 1, text_color), (x * box + 5 * padding, y * box + 14 * padding))
+            screen.blit(my_font.render('{:>4}'.format(boardnum.board[y][x]), True, text_color), (x * box + 5 * padding, y * box + 14 * padding))
+    score_text = sidebar_font.render('Score:', True, formats["colors"]["text"])
+    score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
+    your_move = sidebar_font.render(boardnum.move_name, True, formats["colors"]["text"])
+
+    score_textRect = score_text.get_rect()
+    score_countRect = score_count.get_rect()
+
+    score_textRect.center = (1150, 100)
+    score_countRect.center = (1150, 200)  
+
+    screen.blit(score_text, score_textRect)
+    screen.blit(score_count, score_countRect)
     pygame.display.update()
 
 def playGame():

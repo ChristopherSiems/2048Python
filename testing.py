@@ -1,6 +1,6 @@
 class App2048:
     def __init__(self): #initializing board
-        self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4] 
+        self.board = [[0] * 4, [2] * 4, [2] * 4,  [2] * 4] 
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[0][1]} {self.board[0][2]} {self.board[0][3]}
@@ -17,6 +17,15 @@ class App2048:
     def copy(self):
         new_board = App2048()
         return new_board
+    
+    def check(self):
+        flat_board = [[cell for cell in row] for row in self.board]
+        for i in range(0,4):
+            for j in range(0,4):
+                if flat_board[i][j] == 0:
+                    print('balls')
+                if self.board[i][j] == 0:
+                    print('hi')
 
 def copying(boardnum):
     new_board = boardnum.copy()
@@ -30,3 +39,4 @@ def copying(boardnum):
 game1 = App2048()
 # copying(game1)
 game2 = game1.copy()
+print(game1.check())
