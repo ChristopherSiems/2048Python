@@ -68,20 +68,24 @@ def playGame():
                     key = formats['buttons'][str(event.key)]
                     if key == 'w':
                         game1.fullUp()
+                        game1.pickTwoOrFour()
                         display(game1)
                     elif key == 'a':
                         game1.fullLeft()
+                        game1.pickTwoOrFour()
                         display(game1)
                     elif key == 's':
                         game1.fullDown()
+                        game1.pickTwoOrFour()
                         display(game1)
                     elif key == 'd':
                         game1.fullRight()
+                        game1.pickTwoOrFour()
                         display(game1)
                 
                 #checking status of the game
                 if game1.check():
-                    game1.pickTwoOrFour()
+                    continue
                 else:
                     pygame.draw.rect(screen, (255, 204, 153),  )
 
