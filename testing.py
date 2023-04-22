@@ -18,8 +18,13 @@ class App2048:
         return new_board
 
 def copying(boardnum):
-    board_copy = boardnum.copy()
-    print(board_copy)
+    news_board = boardnum.copy()
+    print(boardnum)
+    print(news_board)
+    if news_board == boardnum:
+        print('hi')
+    else:
+        print('balls')
 
 game1 = App2048()
 copying(game1)

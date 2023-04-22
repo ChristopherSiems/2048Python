@@ -42,15 +42,10 @@ class App2048:
                 self.board[y][x] = random.choice((2, 4))
                 assigned = True
     
-    def check(self):
-        if self.copy().fullUp().board != self.board:
-            return True
-        if self.copy().fullDown().board != self.board:
-            return True
-        if self.copy().fullLeft().board != self.board:
-            return True
-        if self.copy().fullRight().board != self.board:
-            return True
+    def check(self, other):
+        for y in range(0,4):
+            for x in range(0,4):
+                if self.board[y][x] == 
         for y in range(0, 4):
             if 0 in self.board[y]:
                 return True
@@ -155,3 +150,8 @@ class App2048:
         self.rightMove()
         self.rightMove()
         self.rightMove()
+    
+
+    def copy(self):
+        new_board = App2048()
+        return new_board
