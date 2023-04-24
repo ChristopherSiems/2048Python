@@ -53,57 +53,75 @@ def display(boardnum):
             screen.blit(my_font.render('{:>4}'.format(boardnum.board[y][x]), True, text_color), (x * box + 5 * padding, y * box + 14 * padding))
     score_text = sidebar_font.render('Score:', True, formats["colors"]["text"])
     score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
+    move_text = sidebar_font.render('Your Move:', True, formats["colors"]["text"])
     your_move = sidebar_font.render(boardnum.move_name, True, formats["colors"]["text"])
-
+    # controls = 'Game Controls:\n\
+    #                                W:    Up\n\
+    #                                A:    Left\n\
+    #                                S:    Down\n\
+    #                                D:    Right\n\
+    #                                Q:    Quit'
+    # sentences = [word for word in controls.splitlines()]
+    
+    # controlsRect = controls.get_rect()
     score_textRect = score_text.get_rect()
     score_countRect = score_count.get_rect()
+    move_textRect = move_text.get_rect()
+    your_moveRect = your_move.get_rect()
 
+    # controlsRect.bottomleft = (1050, 500)
     score_textRect.center = (1150, 100)
-    score_countRect.center = (1150, 200)  
+    score_countRect.center = (1150, 150)
+    move_textRect.center = (1150, 250)
+    your_moveRect.center = (1150, 400) 
 
+    # screen.blit(controls, controlsRect)
     screen.blit(score_text, score_textRect)
     screen.blit(score_count, score_countRect)
+    screen.blit(your_move, your_moveRect) 
+    screen.blit(move_text, move_textRect)
     pygame.display.update()
 
-def playGame():
-    while True:
+def playGame(boardnum):
+    running  = True
+    while running :
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if str(event.key) == '''q''':
-                    pygame.quit()
-                    sys.exit()
-                #elif str(event.key) not in formats['buttons']:
-                #    return "please type a valid key"
+                    running = False
+
                 else:
                     key = formats['buttons'][str(event.key)]
                     if key == 'w':
-                        game1.fullUp()
-                        game1.pickTwoOrFour()
-                        display(game1)
+                        boardnum.fullUp()
+                        boardnum.pickTwoOrFour()
+                        display(boardnum)
                     elif key == 'a':
-                        game1.fullLeft()
-                        game1.pickTwoOrFour()
-                        display(game1)
+                        boardnum.fullLeft()
+                        boardnum.pickTwoOrFour()
+                        display(boardnum)
                     elif key == 's':
-                        game1.fullDown()
-                        game1.pickTwoOrFour()
-                        display(game1)
+                        boardnum.fullDown()
+                        boardnum.pickTwoOrFour()
+                        display(boardnum)
                     elif key == 'd':
-                        game1.fullRight()
-                        game1.pickTwoOrFour()
-                        display(game1)
+                        boardnum.fullRight()
+                        boardnum.pickTwoOrFour()
+                        display(boardnum)
                 #checking status of the game
-                if game1.check():
+                if boardnum.check():
                     continue
                 else:
-                    #pygame.draw.rect(screen, (255, 204, 153), (200, 200, 400, 200), 0)
-                    pygame.quit()
-                    sys.exit()
-                display(game1)
+                    pygame.draw.rect(screen, (255, 204, 153), (200, 200, 400, 200), 0)
+                    # pygame.quit()
+                    # sys.exit()
+                    pygame.display.update()
+    pygame.quit()
+    sys.exit()
 
 if __name__ == '__main__':
     json.load(open('formats.json', mode = 'r'))
     file.close()
     pygame.init()
     newGame()
-    playGame()
+    playGame(game1)
