@@ -15,8 +15,8 @@ formats = json.load(file)
 
 #setting up the screen and font for the game, creating the main board
 screen = pygame.display.set_mode((formats["size_y"], formats["size_x"]))
-my_font = pygame.font.SysFont(formats["game_font_size"], formats["font_size"], bold=True)
-sidebar_font = pygame.font.SysFont(formats["sidebar_font-size"], formats["font_size"], bold=True)
+my_font = pygame.font.SysFont(formats["font"], formats["game_font_size"], bold=True)
+sidebar_font = pygame.font.SysFont(formats["font"], formats["sidebar_font_size"], bold=True)
 
 '''whenever the code is run and this function is called
 there will be a new game'''
