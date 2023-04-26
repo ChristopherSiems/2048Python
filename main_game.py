@@ -52,6 +52,9 @@ def display(boardnum):
             else:
                 text_color = tuple((255,255,255))
             screen.blit(my_font.render('{:>3}'.format(boardnum.board[y][x]), True, text_color), (x * box + 4 * padding, y * box + 7 * padding))
+
+    pygame.draw.rect(screen, formats['colors']['white'],  (920, 20, formats['size_x'], formats['size_y']), 0)
+
     score_text = sidebar_font.render('Score:', True, formats["colors"]["text"])
     score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
     move_text = sidebar_font.render('Your Move:', True, formats["colors"]["text"])
