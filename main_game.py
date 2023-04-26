@@ -90,11 +90,12 @@ def playGame(boardnum):
     running  = True
     while running :
         for event in pygame.event.get():
+            over = False
             if event.type == QUIT or event.type == pygame.KEYDOWN and event.key == K_q:
                     running = False
             elif event.type == pygame.KEYDOWN and str(event.key) not in formats['''buttons''']:
                 continue
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and not over:
                 key = formats['buttons'][str(event.key)]
                 if key == 'w':
                     c = boardnum.copy()
@@ -124,6 +125,7 @@ def playGame(boardnum):
                 if boardnum.check():
                     continue
                 else:
+                    over = True
                     size_x = formats['size_x']
                     size_y = formats['size_y']
                     s = pygame.Surface((size_x, size_y), pygame.SRCALPHA)
