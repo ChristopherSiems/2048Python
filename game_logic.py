@@ -59,6 +59,7 @@ class App2048:
     def upMove(self):
 
         self.move_name = 'Up'
+        self.ifcanmove = False
 
         '''this function will move up'''
         for x in range(0, 4):
@@ -79,11 +80,11 @@ class App2048:
                     self.score += self.board[y][x]
                     self.board[y + 1][x] = 0
                     self.ifcanmove = True
-        self.ifcanmove = False
 
     def downMove(self):   
 
         self.move_name = 'Down'
+        self.ifcanmove = False
 
         '''this function will move down'''
         for x in range(0, 4):
@@ -104,7 +105,6 @@ class App2048:
                     self.score += self.board[y][x]
                     self.board[y - 1][x] = 0
                     self.ifcanmove = True
-        self.ifcanmove = False
     
     def leftMove(self):
         '''for y in range(0, 4):
@@ -124,6 +124,7 @@ class App2048:
                     self.board[y][x + 1] = 0'''
 
         self.move_name = 'Left'
+        self.ifcanmove = False
 
         '''this function will move left'''
         for y in range(0, 4):
@@ -144,7 +145,6 @@ class App2048:
                     self.score += self.board[y][x]
                     self.board[y][x + 1] = 0
                     self.ifcanmove = True
-        self.ifcanmove = False
 
     def rightMove(self):
         '''for y in range(0, 4):
@@ -164,6 +164,7 @@ class App2048:
                     self.board[y][x - 1] = 0'''
 
         self.move_name = 'Right'
+        self.ifcanmove = False
 
         '''this function goes right'''
         for y in range(0, 4):
@@ -184,7 +185,6 @@ class App2048:
                     self.score += self.board[y][x]
                     self.board[y][x - 1] = 0
                     self.ifcanmove = True
-        self.ifcanmove = False
     
     def fullUp(self):
         self.upMove()
