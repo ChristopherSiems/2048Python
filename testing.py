@@ -49,3 +49,5 @@ D:    Right\n\
 Q:    Quit'
 sentences = [word for word in controls.splitlines()]
 print(sentences)
+
+

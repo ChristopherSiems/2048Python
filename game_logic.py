@@ -46,9 +46,9 @@ class App2048:
                 assigned = True
     
     def check(self):
-        merge_check = True
-        if (self.downMove() and self.upMove()) and (self.leftMove() and self.rightMove()):
-            merge_check = False
+        # merge_check = True
+        # if (self.downMove() and self.upMove()) and (self.leftMove() and self.rightMove()):
+        #     merge_check = False
         for y in range(0, 4):
                 if 0 in self.board[y]:
                     return True
@@ -214,11 +214,11 @@ class App2048:
         self.rightMove()
         self.rightMove()
 
-'''game = App2048()
+game = App2048()
 game.preGameSetUp()
 print(game)
 game.fullUp()
 game.pickTwoOrFour()
 print(game)
 game.fullRight()
-print(game)'''
+print(game)
