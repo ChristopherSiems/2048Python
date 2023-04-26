@@ -107,6 +107,21 @@ class App2048:
         self.ifcanmove = False
     
     def leftMove(self):
+        '''for y in range(0, 4):
+            shift = 0
+            for x in range(0, 4):
+                if self.board[y][x] == 0:
+                    shift += 1
+                elif shift == 0:
+                    continue
+                else:
+                    self.board[y][x - shift] = self.board[y][x]
+                    self.board[y][x] = 0
+        for y in range(0, 4):
+            for x in range(0, 3):
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y][x + 1]:
+                    self.board[y][x] *= 2
+                    self.board[y][x + 1] = 0'''
 
         self.move_name = 'Left'
 
@@ -132,6 +147,21 @@ class App2048:
         self.ifcanmove = False
 
     def rightMove(self):
+        '''for y in range(0, 4):
+            shift = 0
+            for x in range(3, -1, -1):
+                if self.board[y][x] == 0:
+                    shift += 1
+                elif shift == 0:
+                    continue
+                else:
+                    self.board[y][x + shift] = self.board[y][x]
+                    self.board[y][x] = 0
+        for y in range(0, 4):
+            for x in range(3, 0, -1):
+                if self.board[y][x] != 0 and self.board[y][x] == self.board[y][x - 1]:
+                    self.board[y][x] *= 2
+                    self.board[y][x - 1] = 0'''
 
         self.move_name = 'Right'
 
@@ -183,4 +213,12 @@ class App2048:
         self.rightMove()
         self.rightMove()
         self.rightMove()
-    
+
+'''game = App2048()
+game.preGameSetUp()
+print(game)
+game.fullUp()
+game.pickTwoOrFour()
+print(game)
+game.fullRight()
+print(game)'''

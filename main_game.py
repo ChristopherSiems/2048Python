@@ -31,7 +31,7 @@ def newGame():
 
 '''creating a function that updates the display after every move. There will be some animations using sprite module in python'''
 def display(boardnum):
-    pygame.display.set_caption('2048 Game by Sai Chanda, Chris Siems,and Sam Szymanski')
+    pygame.display.set_caption('2048 Game by Sai Chanda, Chris Siems, and Sam Szymanski')
     board_copy = boardnum.copy()
     #creates background for game, box size per cube, and gets the padding from that json file
     screen.fill(tuple(formats["colors"]["background"]))
@@ -89,7 +89,8 @@ def playGame(boardnum):
         for event in pygame.event.get():
             if event.type == QUIT or event.type == pygame.KEYDOWN and event.key == K_q:
                     running = False
-
+            elif event.type == pygame.KEYDOWN and str(event.key) not in formats['''buttons''']:
+                continue
             elif event.type == pygame.KEYDOWN:
                 key = formats['buttons'][str(event.key)]
                 if key == 'w':
