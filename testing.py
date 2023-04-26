@@ -42,15 +42,10 @@
 # print(game1.check())
 
 controls = 'Game Controls:\n\
-                                W:    Up\n\
-                                A:    Left\n\
-                                S:    Down\n\
-                                D:    Right\n\
-                                Q:    Quit'
+W:    Up\n\
+A:    Left\n\
+S:    Down\n\
+D:    Right\n\
+Q:    Quit'
 sentences = [word for word in controls.splitlines()]
-for word in sentences:
-    for i in range(0, len(word)):
-        if word[i] == ' ':
-            word.replace(' ', '')
-
 print(sentences)

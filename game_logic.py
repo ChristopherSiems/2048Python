@@ -5,6 +5,7 @@ class App2048:
         self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4]
         self.score = 0
         self.move_name = ''
+        self.ifcanmove = True
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[0][1]} {self.board[0][2]} {self.board[0][3]}
@@ -45,15 +46,15 @@ class App2048:
                 assigned = True
     
     def check(self):
-        for y in range(0,4):
-            for x in range(0,4):
-                if y != 3 and self.board[y][x] == self.board[y + 1] \
-                    or x != 3 and self.board[y][x] == self.board[y][x + 1]:
-                    return True
+        merge_check = True
+        if (self.downMove() and self.upMove()) and (self.leftMove() and self.rightMove()):
+            merge_check = False
         for y in range(0, 4):
                 if 0 in self.board[y]:
                     return True
-        return False
+        merge_check = False
+        if merge_check == False:
+            return False
 
     def upMove(self):
 
@@ -77,6 +78,8 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y + 1][x] = 0
+                    self.ifcanmove = True
+        self.ifcanmove = False
 
     def downMove(self):   
 
@@ -100,6 +103,8 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y - 1][x] = 0
+                    self.ifcanmove = True
+        self.ifcanmove = False
     
     def leftMove(self):
 
@@ -123,6 +128,8 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y][x + 1] = 0
+                    self.ifcanmove = True
+        self.ifcanmove = False
 
     def rightMove(self):
 
@@ -146,6 +153,8 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y][x - 1] = 0
+                    self.ifcanmove = True
+        self.ifcanmove = False
     
     def fullUp(self):
         self.upMove()

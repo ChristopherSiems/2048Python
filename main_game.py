@@ -17,6 +17,7 @@ formats = json.load(file)
 screen = pygame.display.set_mode((formats["size_y"], formats["size_x"]))
 my_font = pygame.font.SysFont(formats["font"], formats["game_font_size"], bold=True)
 sidebar_font = pygame.font.SysFont(formats["font"], formats["sidebar_font_size"], bold=True)
+gameover_font = pygame.font.SysFont(formats["font"], formats["gameover_font_size"])
 
 '''whenever the code is run and this function is called
 there will be a new game'''
@@ -50,17 +51,17 @@ def display(boardnum):
                 text_color = formats["colors"]["text"]
             else:
                 text_color = tuple((255,255,255))
-            screen.blit(my_font.render('{:>4}'.format(boardnum.board[y][x]), True, text_color), (x * box + 5 * padding, y * box + 14 * padding))
+            screen.blit(my_font.render('{:>3}'.format(boardnum.board[y][x]), True, text_color), (x * box + 4 * padding, y * box + 7 * padding))
     score_text = sidebar_font.render('Score:', True, formats["colors"]["text"])
     score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
     move_text = sidebar_font.render('Your Move:', True, formats["colors"]["text"])
     your_move = sidebar_font.render(boardnum.move_name, True, formats["colors"]["text"])
     # controls = 'Game Controls:\n\
-    #                                W:    Up\n\
-    #                                A:    Left\n\
-    #                                S:    Down\n\
-    #                                D:    Right\n\
-    #                                Q:    Quit'
+    #                                W or ^:    Up\n\
+    #                                A or <:    Left\n\
+    #                                S or v:    Down\n\
+    #                                D or >:    Right\n\
+    #                                Q:         Quit'
     # sentences = [word for word in controls.splitlines()]
     
     # controlsRect = controls.get_rect()
@@ -70,10 +71,10 @@ def display(boardnum):
     your_moveRect = your_move.get_rect()
 
     # controlsRect.bottomleft = (1050, 500)
-    score_textRect.center = (1150, 100)
-    score_countRect.center = (1150, 150)
-    move_textRect.center = (1150, 250)
-    your_moveRect.center = (1150, 400) 
+    score_textRect.center = (1050, 100)
+    score_countRect.center = (1050, 150)
+    move_textRect.center = (1050, 250)
+    your_moveRect.center = (1050, 400) 
 
     # screen.blit(controls, controlsRect)
     screen.blit(score_text, score_textRect)
@@ -86,38 +87,54 @@ def playGame(boardnum):
     running  = True
     while running :
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if str(event.key) == '''q''':
+            if event.type == QUIT or event.type == pygame.KEYDOWN and event.key == K_q:
                     running = False
 
-                else:
-                    key = formats['buttons'][str(event.key)]
-                    if key == 'w':
-                        boardnum.fullUp()
-                        boardnum.pickTwoOrFour()
-                        display(boardnum)
-                    elif key == 'a':
-                        boardnum.fullLeft()
-                        boardnum.pickTwoOrFour()
-                        display(boardnum)
-                    elif key == 's':
-                        boardnum.fullDown()
-                        boardnum.pickTwoOrFour()
-                        display(boardnum)
-                    elif key == 'd':
-                        boardnum.fullRight()
-                        boardnum.pickTwoOrFour()
-                        display(boardnum)
+            elif event.type == pygame.KEYDOWN:
+                key = formats['buttons'][str(event.key)]
+                if key == 'w':
+                    boardnum.fullUp()
+                    boardnum.pickTwoOrFour()
+                    display(boardnum)
+                elif key == 'a':
+                    boardnum.fullLeft()
+                    boardnum.pickTwoOrFour()
+                    display(boardnum)
+                elif key == 's':
+                    boardnum.fullDown()
+                    boardnum.pickTwoOrFour()
+                    display(boardnum)
+                elif key == 'd':
+                    boardnum.fullRight()
+                    boardnum.pickTwoOrFour()
+                    display(boardnum)
                 #checking status of the game
                 if boardnum.check():
                     continue
                 else:
-                    pygame.draw.rect(screen, (255, 204, 153), (200, 200, 400, 200), 0)
+                    size_x = formats['size_x']
+                    size_y = formats['size_y']
+                    s = pygame.Surface((size_x, size_y), pygame.SRCALPHA)
+                    s.fill(formats["colors"]["game_over"])
+                    screen.blit(s, (0, 0))
+                    gameOverText = gameover_font.render('Game Over', True, formats["colors"]["text"])
+                    gameOverTextRect = gameOverText.get_rect()
+                    gameOverTextRect.center = ((900-90)/2 + 50,400)
+                    screen.blit(gameOverText,gameOverTextRect)
                     # pygame.quit()
                     # sys.exit()
                     pygame.display.update()
-    pygame.quit()
-    sys.exit()
+                    for event in pygame.event.get():
+                        if event.type == pygame.KEYDOWN:
+                            if str(event.key) not in formats['buttons']:
+                                key == formats['buttons'][str(event.key)]
+                                if key == 'n':
+                                    pygame.quit()
+                                    sys.exit()
+                                elif key == 'y':
+                                    newGame()
+                                    playGame()
+                                
 
 if __name__ == '__main__':
     json.load(open('formats.json', mode = 'r'))
