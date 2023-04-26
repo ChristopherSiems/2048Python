@@ -45,6 +45,12 @@ class App2048:
                 assigned = True
     
     def check(self):
+        for y in range(4):
+            for x in range(4):
+                # check if a merge is possible
+                if x != 3 and self.board[y][x] == self.board[y][x+1] or \
+                    y != 3 and self.board[y][x] == self.board[y + 1][x]:
+                    return True
         for y in range(0, 4):
                 if 0 in self.board[y]:
                     return True

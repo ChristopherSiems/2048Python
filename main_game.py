@@ -17,6 +17,8 @@ formats = json.load(file)
 screen = pygame.display.set_mode((formats["size_y"], formats["size_x"]))
 my_font = pygame.font.SysFont(formats["font"], formats["game_font_size"], bold=True)
 sidebar_font = pygame.font.SysFont(formats["font"], formats["sidebar_font_size"], bold=True)
+title_controls_font = pygame.font.SysFont(formats["font"], int(formats["sidebar_font_size"]/1.15), bold=True)
+controls_font = pygame.font.SysFont(formats["font"], int(formats["sidebar_font_size"]/1.25), bold=False)
 gameover_font = pygame.font.SysFont(formats["font"], formats["gameover_font_size"])
 
 '''whenever the code is run and this function is called
@@ -53,37 +55,48 @@ def display(boardnum):
                 text_color = tuple((255,255,255))
             screen.blit(my_font.render('{:>3}'.format(boardnum.board[y][x]), True, text_color), (x * box + 4 * padding, y * box + 7 * padding))
 
-    pygame.draw.rect(screen, formats['colors']['white'],  (920, 20, formats['size_x'], formats['size_y']), 0)
+    pygame.draw.rect(screen, formats['colors']['sidebar'],  (905, 10, formats['size_x'] - 620 , formats['size_y'] - 320), 0)
 
     score_text = sidebar_font.render('Score:', True, formats["colors"]["text"])
     score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
-    move_text = sidebar_font.render('Your Move:', True, formats["colors"]["text"])
-    your_move = sidebar_font.render(boardnum.move_name, True, formats["colors"]["text"])
-    # controls = 'Game Controls:\n\
-    #                                W or ^:    Up\n\
-    #                                A or <:    Left\n\
-    #                                S or v:    Down\n\
-    #                                D or >:    Right\n\
-    #                                Q:         Quit'
-    # sentences = [word for word in controls.splitlines()]
+    move_text = sidebar_font.render('Your Move: ' + boardnum.move_name, True, formats["colors"]["text"])
+    game_controls_text = title_controls_font.render('Game Controls:', True, formats["colors"]["text"])
+    w_control = controls_font.render('W or ^:            Up', True, formats["colors"]['text'])
+    a_control = controls_font.render('A or <:            Left', True, formats["colors"]['text'])
+    s_control = controls_font.render('S or v:            Down', True, formats["colors"]['text'])
+    d_control = controls_font.render('D or >:            Right', True, formats["colors"]['text'])
+    q_control = controls_font.render('Q:                 Quit', True, formats["colors"]['text'])
     
-    # controlsRect = controls.get_rect()
+
     score_textRect = score_text.get_rect()
     score_countRect = score_count.get_rect()
     move_textRect = move_text.get_rect()
-    your_moveRect = your_move.get_rect()
+    game_controls_textRect = game_controls_text.get_rect()
+    w_controlRect = w_control.get_rect()
+    a_controlRect = s_control.get_rect()
+    s_controlRect = s_control.get_rect()
+    d_controlRect = d_control.get_rect()
+    q_controlRect = q_control.get_rect()
 
-    # controlsRect.bottomleft = (1050, 500)
-    score_textRect.center = (1050, 100)
-    score_countRect.center = (1050, 150)
-    move_textRect.center = (1050, 250)
-    your_moveRect.center = (1050, 400) 
+    score_textRect.topleft = (920, 100)
+    score_countRect.topleft = (920, 150)
+    move_textRect.topleft = (920, 250)
+    game_controls_textRect.topleft = (940, 400)
+    w_controlRect.topleft = (950, 450)
+    a_controlRect.topleft = (950, 475)
+    s_controlRect.topleft = (950, 500)
+    d_controlRect.topleft = (950, 525)
+    q_controlRect.topleft = (950, 550)
 
-    # screen.blit(controls, controlsRect)
+    screen.blit(game_controls_text,game_controls_textRect)
     screen.blit(score_text, score_textRect)
     screen.blit(score_count, score_countRect)
-    screen.blit(your_move, your_moveRect) 
     screen.blit(move_text, move_textRect)
+    screen.blit(w_control, w_controlRect)
+    screen.blit(a_control, a_controlRect)
+    screen.blit(s_control, s_controlRect)
+    screen.blit(d_control, d_controlRect)
+    screen.blit(q_control, q_controlRect)
     pygame.display.update()
 
 def playGame(boardnum):

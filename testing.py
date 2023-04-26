@@ -42,12 +42,12 @@
 # print(game1.check())
 
 controls = 'Game Controls:\n\
-W:    Up\n\
-A:    Left\n\
-S:    Down\n\
-D:    Right\n\
-Q:    Quit'
+W or ^:    Up\n\
+A or <:    Left\n\
+S or v:    Down\n\
+D or >:    Right\n\
+Q:         Quit'
 sentences = [word for word in controls.splitlines()]
-print(sentences)
+
 
 
