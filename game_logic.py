@@ -5,7 +5,6 @@ class App2048:
         self.board = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4]
         self.score = 0
         self.move_name = ''
-        self.ifcanmove = True
 
     def __repr__(self):
         string = f'''{self.board[0][0]} {self.board[0][1]} {self.board[0][2]} {self.board[0][3]}
@@ -46,20 +45,14 @@ class App2048:
                 assigned = True
     
     def check(self):
-        # merge_check = True
-        # if (self.downMove() and self.upMove()) and (self.leftMove() and self.rightMove()):
-        #     merge_check = False
         for y in range(0, 4):
                 if 0 in self.board[y]:
                     return True
-        merge_check = False
-        if merge_check == False:
-            return False
+        return False
 
     def upMove(self):
 
         self.move_name = 'Up'
-        self.ifcanmove = False
 
         '''this function will move up'''
         for x in range(0, 4):
@@ -79,12 +72,10 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y + 1][x] = 0
-                    self.ifcanmove = True
 
     def downMove(self):   
 
         self.move_name = 'Down'
-        self.ifcanmove = False
 
         '''this function will move down'''
         for x in range(0, 4):
@@ -104,27 +95,9 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y - 1][x] = 0
-                    self.ifcanmove = True
     
     def leftMove(self):
-        '''for y in range(0, 4):
-            shift = 0
-            for x in range(0, 4):
-                if self.board[y][x] == 0:
-                    shift += 1
-                elif shift == 0:
-                    continue
-                else:
-                    self.board[y][x - shift] = self.board[y][x]
-                    self.board[y][x] = 0
-        for y in range(0, 4):
-            for x in range(0, 3):
-                if self.board[y][x] != 0 and self.board[y][x] == self.board[y][x + 1]:
-                    self.board[y][x] *= 2
-                    self.board[y][x + 1] = 0'''
-
         self.move_name = 'Left'
-        self.ifcanmove = False
 
         '''this function will move left'''
         for y in range(0, 4):
@@ -144,27 +117,9 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y][x + 1] = 0
-                    self.ifcanmove = True
 
     def rightMove(self):
-        '''for y in range(0, 4):
-            shift = 0
-            for x in range(3, -1, -1):
-                if self.board[y][x] == 0:
-                    shift += 1
-                elif shift == 0:
-                    continue
-                else:
-                    self.board[y][x + shift] = self.board[y][x]
-                    self.board[y][x] = 0
-        for y in range(0, 4):
-            for x in range(3, 0, -1):
-                if self.board[y][x] != 0 and self.board[y][x] == self.board[y][x - 1]:
-                    self.board[y][x] *= 2
-                    self.board[y][x - 1] = 0'''
-
         self.move_name = 'Right'
-        self.ifcanmove = False
 
         '''this function goes right'''
         for y in range(0, 4):
@@ -184,7 +139,6 @@ class App2048:
                     self.board[y][x] *= 2
                     self.score += self.board[y][x]
                     self.board[y][x - 1] = 0
-                    self.ifcanmove = True
     
     def fullUp(self):
         self.upMove()
@@ -213,12 +167,3 @@ class App2048:
         self.rightMove()
         self.rightMove()
         self.rightMove()
-
-game = App2048()
-game.preGameSetUp()
-print(game)
-game.fullUp()
-game.pickTwoOrFour()
-print(game)
-game.fullRight()
-print(game)
