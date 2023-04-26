@@ -97,20 +97,28 @@ def playGame(boardnum):
             elif event.type == pygame.KEYDOWN:
                 key = formats['buttons'][str(event.key)]
                 if key == 'w':
+                    c = boardnum.copy()
                     boardnum.fullUp()
-                    boardnum.pickTwoOrFour()
+                    if c.board != boardnum.board:
+                        boardnum.pickTwoOrFour()
                     display(boardnum)
                 elif key == 'a':
+                    c = boardnum.copy()
                     boardnum.fullLeft()
-                    boardnum.pickTwoOrFour()
+                    if c.board != boardnum.board:
+                        boardnum.pickTwoOrFour()
                     display(boardnum)
                 elif key == 's':
+                    c = boardnum.copy()
                     boardnum.fullDown()
-                    boardnum.pickTwoOrFour()
+                    if c.board != boardnum.board:
+                        boardnum.pickTwoOrFour()
                     display(boardnum)
                 elif key == 'd':
+                    c = boardnum.copy()
                     boardnum.fullRight()
-                    boardnum.pickTwoOrFour()
+                    if c.board != boardnum.board:
+                        boardnum.pickTwoOrFour()
                     display(boardnum)
                 #checking status of the game
                 if boardnum.check():
