@@ -213,12 +213,3 @@ class App2048:
         self.rightMove()
         self.rightMove()
         self.rightMove()
-
-game = App2048()
-game.preGameSetUp()
-print(game)
-game.fullUp()
-game.pickTwoOrFour()
-print(game)
-game.fullRight()
-print(game)
