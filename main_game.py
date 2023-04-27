@@ -20,6 +20,8 @@ sidebar_font = pygame.font.SysFont(formats["font"], formats["sidebar_font_size"]
 title_controls_font = pygame.font.SysFont(formats["font"], int(formats["sidebar_font_size"]/1.15), bold=True)
 controls_font = pygame.font.SysFont(formats["font"], int(formats["sidebar_font_size"]/1.25), bold=False)
 gameover_font = pygame.font.SysFont(formats["font"], formats["gameover_font_size"])
+global over
+over = False
 
 '''whenever the code is run and this function is called
 there will be a new game'''
@@ -29,10 +31,10 @@ def newGame():
     global game1
     game1 = App2048()
     game1.preGameSetUp()
-    display(game1)
+    display(game1, over)
 
 '''creating a function that updates the display after every move. There will be some animations using sprite module in python'''
-def display(boardnum):
+def display(boardnum, over_check):
     pygame.display.set_caption('2048 Game by Sai Chanda, Chris Siems, and Sam Szymanski')
     board_copy = boardnum.copy()
     #creates background for game, box size per cube, and gets the padding from that json file
@@ -97,6 +99,18 @@ def display(boardnum):
     screen.blit(s_control, s_controlRect)
     screen.blit(d_control, d_controlRect)
     screen.blit(q_control, q_controlRect)
+    
+    if over_check:
+        size_x = formats['size_x']
+        size_y = formats['size_y']
+        s = pygame.Surface((size_x, size_y), pygame.SRCALPHA)
+        s.fill(formats["colors"]["game_over"])
+        screen.blit(s, (0, 0))
+        gameOverText = gameover_font.render('Game Over', True, formats["colors"]["text"])
+        gameOverTextRect = gameOverText.get_rect()
+        gameOverTextRect.center = ((900-90)/2 + 50,400)
+        screen.blit(gameOverText,gameOverTextRect)
+
     pygame.display.update()
 
 def playGame(boardnum):
@@ -115,42 +129,31 @@ def playGame(boardnum):
                     boardnum.fullUp()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum)
+                    display(boardnum, over)
                 elif key == 'a':
                     c = boardnum.copy()
                     boardnum.fullLeft()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum)
+                    display(boardnum, over)
                 elif key == 's':
                     c = boardnum.copy()
                     boardnum.fullDown()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum)
+                    display(boardnum, over)
                 elif key == 'd':
                     c = boardnum.copy()
                     boardnum.fullRight()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum)
+                    display(boardnum, over)
                 #checking status of the game
                 if boardnum.check():
                     continue
                 else:
                     over = True
-                    size_x = formats['size_x']
-                    size_y = formats['size_y']
-                    s = pygame.Surface((size_x, size_y), pygame.SRCALPHA)
-                    s.fill(formats["colors"]["game_over"])
-                    screen.blit(s, (0, 0))
-                    gameOverText = gameover_font.render('Game Over', True, formats["colors"]["text"])
-                    gameOverTextRect = gameOverText.get_rect()
-                    gameOverTextRect.center = ((900-90)/2 + 50,400)
-                    screen.blit(gameOverText,gameOverTextRect)
-                    # pygame.quit()
-                    # sys.exit()
-                    pygame.display.update()
+                    display(boardnum, over)
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
                             if str(event.key) not in formats['buttons']:
@@ -159,8 +162,11 @@ def playGame(boardnum):
                                     pygame.quit()
                                     sys.exit()
                                 elif key == 'y':
-                                    newGame()
-                                    playGame()
+                                    boardnum.define([[0] * 4, [0] * 4, [0] * 4,  [0] * 4])
+
+                                    display(game1)
+                                    playGame(game1)
+
                                 
 
 if __name__ == '__main__':
