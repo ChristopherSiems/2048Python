@@ -1,3 +1,5 @@
+'''python file used to test certain functions and ideas to impliment in the code'''
+
 # class App2048:
 #     def __init__(self): #initializing board
 #         self.board = [[0] * 4, [2] * 4, [2] * 4,  [2] * 4] 
@@ -40,14 +42,3 @@
 # # copying(game1)
 # game2 = game1.copy()
 # print(game1.check())
-
-controls = 'Game Controls:\n\
-W or ^:    Up\n\
-A or <:    Left\n\
-S or v:    Down\n\
-D or >:    Right\n\
-Q:         Quit'
-sentences = [word for word in controls.splitlines()]
-
-
-

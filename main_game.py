@@ -1,3 +1,6 @@
+'''This is the code that will launch and play the game 2048'''
+
+#These imported modules allow us to run the game and load all the necessary functions
 from game_logic import App2048
 import sys
 import json
@@ -10,33 +13,35 @@ pygame.font.init()
 
 #this file contains all the formats, font, and colors for 
 #the game in a dictionary in a json file
-file = open("formats.json", mode = "r")
-formats = json.load(file)
+format_file = open("formats.json", mode = "r")
+formats = json.load(format_file)
 
-#setting up the screen and font for the game, creating the main board
+'''This section creates the screen and grabs all the fonts from the imported json file'''
 screen = pygame.display.set_mode((formats["size_y"], formats["size_x"]))
 my_font = pygame.font.SysFont(formats["font"], formats["game_font_size"], bold=True)
 sidebar_font = pygame.font.SysFont(formats["font"], formats["sidebar_font_size"], bold=True)
 title_controls_font = pygame.font.SysFont(formats["font"], int(formats["sidebar_font_size"]/1.15), bold=True)
 controls_font = pygame.font.SysFont(formats["font"], int(formats["sidebar_font_size"]/1.25), bold=False)
 gameover_font = pygame.font.SysFont(formats["font"], formats["gameover_font_size"])
-global over
-over = False
 
-'''whenever the code is run and this function is called
-there will be a new game'''
+'''This function is called before the game starts to intialize the board and display the start of the game'''
 def newGame():
+        
+    #created variable running to make sure the game is playable and still turned on
+    global running 
+    running = True
+
     #creating a global variable for the board that we can call anywhere in the code
     #this variable is an object in the App2048 class that can be modified
     global game1
     game1 = App2048()
     game1.preGameSetUp()
-    display(game1, over)
+    display(game1, running)
 
-'''creating a function that updates the display after every move. There will be some animations using sprite module in python'''
+'''creating a function that updates the display after every move or if the game is over'''
 def display(boardnum, over_check):
+    #creating the title of the window
     pygame.display.set_caption('2048 Game by Sai Chanda, Chris Siems, and Sam Szymanski')
-    board_copy = boardnum.copy()
     #creates background for game, box size per cube, and gets the padding from that json file
     screen.fill(tuple(formats["colors"]["background"]))
     box = formats["size_x"] // 4
@@ -55,9 +60,19 @@ def display(boardnum, over_check):
                 text_color = formats["colors"]["text"]
             else:
                 text_color = tuple((255,255,255))
+            #takes the created box + color and adds it to the screen with its value. 
+            #The adjustments in the last argument give the necessary formating for the number
             screen.blit(my_font.render('{:>3}'.format(boardnum.board[y][x]), True, text_color), (x * box + 4 * padding, y * box + 7 * padding))
 
+    #Creating the Sidebar Menue for the Game
     pygame.draw.rect(screen, formats['colors']['sidebar'],  (905, 10, formats['size_x'] - 620 , formats['size_y'] - 320), 0)
+
+
+    '''All sidebar text is created here, giving the text, font, and if bold or not'''
+    #Text includes:
+    #     Score and Score Count
+    #     Letting user know their move
+    #     All the controls in the game
 
     score_text = sidebar_font.render('Score:', True, formats["colors"]["text"])
     score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
@@ -70,6 +85,7 @@ def display(boardnum, over_check):
     q_control = controls_font.render('Q:                 Quit', True, formats["colors"]['text'])
     
 
+    #creating a rectangle for all of the specific texts variables
     score_textRect = score_text.get_rect()
     score_countRect = score_count.get_rect()
     move_textRect = move_text.get_rect()
@@ -80,6 +96,7 @@ def display(boardnum, over_check):
     d_controlRect = d_control.get_rect()
     q_controlRect = q_control.get_rect()
 
+    #identifying the space where the text will be printed, by giving the top left corner as the starting value
     score_textRect.topleft = (920, 100)
     score_countRect.topleft = (920, 150)
     move_textRect.topleft = (920, 250)
@@ -90,6 +107,7 @@ def display(boardnum, over_check):
     d_controlRect.topleft = (950, 525)
     q_controlRect.topleft = (950, 550)
 
+    #Adds all of the text to the display
     screen.blit(game_controls_text,game_controls_textRect)
     screen.blit(score_text, score_textRect)
     screen.blit(score_count, score_countRect)
@@ -100,7 +118,9 @@ def display(boardnum, over_check):
     screen.blit(d_control, d_controlRect)
     screen.blit(q_control, q_controlRect)
     
-    if over_check:
+    #if the game is over, then it will add the "Game Over" screen on top of the game.
+    #Adds a opaque cover on the game
+    if over_check == False:
         size_x = formats['size_x']
         size_y = formats['size_y']
         s = pygame.Surface((size_x, size_y), pygame.SRCALPHA)
@@ -111,49 +131,80 @@ def display(boardnum, over_check):
         gameOverTextRect.center = ((900-90)/2 + 50,400)
         screen.blit(gameOverText,gameOverTextRect)
 
+    #Updating the display to include all changes made in the move
     pygame.display.update()
 
+
+'''main game loop that will keep running as long as the tab is open and the game is playable'''
 def playGame(boardnum):
-    running  = True
-    while running :
+
+
+    #this while loop will keep playing unless:
+    #     User Presses 'q' or the red 'x' at top right corner
+    #     User Presses 'n' after game is over and wishes not to play again
+    running = True
+    while running:
         for event in pygame.event.get():
-            over = False
+            running = True
+            
+            #If statement to see if user has pressed 'q' or the red 'x' in top right corner 
+            #to know if they want to exit game
             if event.type == QUIT or event.type == pygame.KEYDOWN and event.key == K_q:
                     running = False
+                    pygame.quit()
+                    sys.exit()
+
+            #to stop overflow of data in game, when users press a non playable key, the game passes the data and continues the game
             elif event.type == pygame.KEYDOWN and str(event.key) not in formats['''buttons''']:
                 continue
-            elif event.type == pygame.KEYDOWN and not over:
+
+            #these 'if' statements determine what move the user wants to do and processes that move
+            #Possible moves include
+            #     'w' = Up
+            #     'a' = Left
+            #     's' = Down
+            #     'd' = Right
+            #Once the move is processed, the game creates a copy of the board, modifes the board, and checks to see if the copy is different from the modified board
+            #If the modified board and copy are not the same, it runs the pickTwoOrFour() to place a random '2' or '4' on the board
+            #Else, just goes to the display() function and updates the display
+            #      The reason for this 'if' statement is to stop the user from not changing the board and getting new values
+            #      That would break the intent of the game to add values properly and makes the game too easy
+            elif event.type == pygame.KEYDOWN and running:
                 key = formats['buttons'][str(event.key)]
                 if key == 'w':
                     c = boardnum.copy()
                     boardnum.fullUp()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum, over)
+                    display(boardnum, running)
                 elif key == 'a':
                     c = boardnum.copy()
                     boardnum.fullLeft()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum, over)
+                    display(boardnum, running)
                 elif key == 's':
                     c = boardnum.copy()
                     boardnum.fullDown()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum, over)
+                    display(boardnum, running)
                 elif key == 'd':
                     c = boardnum.copy()
                     boardnum.fullRight()
                     if c.board != boardnum.board:
                         boardnum.pickTwoOrFour()
-                    display(boardnum, over)
-                #checking status of the game
+                    display(boardnum, running)
+
+
+                #This 'if' statement checks to see if the game is over or not
+                #      If playable, then continues the game
+                #      Else, runs the end game sequence where the display shows the game over and allows the user to choose if they want to play again or not
                 if boardnum.check():
                     continue
                 else:
-                    over = True
-                    display(boardnum, over)
+                    running = False
+                    display(boardnum, running)
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
                             if str(event.key) not in formats['buttons']:
@@ -168,10 +219,10 @@ def playGame(boardnum):
                                     playGame(game1)
 
                                 
-
+#Running the actual game
 if __name__ == '__main__':
     json.load(open('formats.json', mode = 'r'))
-    file.close()
+    format_file.close()
     pygame.init()
     newGame()
     playGame(game1)
