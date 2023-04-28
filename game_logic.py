@@ -1,8 +1,6 @@
 '''Game Logic file has all the functions necessary to make all the moves in the game and make it playable'''
-
 #importing necessary modules for the game
 import random
-
 
 '''this Class creates the board and all its properties such as the score, the move name, and the values in the board'''
 class App2048:
@@ -31,12 +29,14 @@ class App2048:
     def define(self, b):
         self.board = b
     
-
     '''Creates a copy of the board
             Used in the main_game.py as a way to compare the copied board to the modified board to make sure a change was made'''
     def copy(self):
-        new_board = App2048()
-        return new_board
+        c = [[0] * 4, [0] * 4, [0] * 4,  [0] * 4]
+        for y in range(4):
+            for x in range(4):
+                c[y][x] = self.board[y][x]
+        return c
     
     '''Pregame set up adds two '2's into the game in random positions'''
     def preGameSetUp(self):
@@ -50,7 +50,6 @@ class App2048:
                 i += 1
             else:
                 continue
-
     
     '''This method will automatically generate a 2 or a 4 after 
         1. a move is made
@@ -63,6 +62,13 @@ class App2048:
             if self.board[y][x] == 0:
                 self.board[y][x] = random.choice((2, 4))
                 assigned = True
+    
+    def compare(self, other):
+        for y in range(4):
+            for x in range(4):
+                if self.board[y][x] != other[y][x]:
+                    return False
+        return True
     
     '''This method checks to see if the game is playable
     Game is playable if 

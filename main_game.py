@@ -78,11 +78,11 @@ def display(boardnum, over_check):
     score_count = sidebar_font.render(str(boardnum.score), True, formats["colors"]["text"])
     move_text = sidebar_font.render('Your Move: ' + boardnum.move_name, True, formats["colors"]["text"])
     game_controls_text = title_controls_font.render('Game Controls:', True, formats["colors"]["text"])
-    w_control = controls_font.render('W or ^:            Up', True, formats["colors"]['text'])
-    a_control = controls_font.render('A or <:            Left', True, formats["colors"]['text'])
-    s_control = controls_font.render('S or v:            Down', True, formats["colors"]['text'])
-    d_control = controls_font.render('D or >:            Right', True, formats["colors"]['text'])
-    q_control = controls_font.render('Q:                 Quit', True, formats["colors"]['text'])
+    w_control = controls_font.render('W or ^:         Up', True, formats["colors"]['text'])
+    a_control = controls_font.render('A or <:        Left', True, formats["colors"]['text'])
+    s_control = controls_font.render('S or v:      Down', True, formats["colors"]['text'])
+    d_control = controls_font.render('D or >:       Right', True, formats["colors"]['text'])
+    q_control = controls_font.render('Q:              Quit', True, formats["colors"]['text'])
     
 
     #creating a rectangle for all of the specific texts variables
@@ -142,10 +142,11 @@ def playGame(boardnum):
     #this while loop will keep playing unless:
     #     User Presses 'q' or the red 'x' at top right corner
     #     User Presses 'n' after game is over and wishes not to play again
+    moves = ['''w''', '''a''', '''s''', '''d''']
     running = True
-    while running:
+    while True:
         for event in pygame.event.get():
-            running = True
+            #running = True
             
             #If statement to see if user has pressed 'q' or the red 'x' in top right corner 
             #to know if they want to exit game
@@ -174,50 +175,45 @@ def playGame(boardnum):
                 if key == 'w':
                     c = boardnum.copy()
                     boardnum.fullUp()
-                    if c.board != boardnum.board:
+                    if not boardnum.compare(c):
                         boardnum.pickTwoOrFour()
                     display(boardnum, running)
                 elif key == 'a':
                     c = boardnum.copy()
                     boardnum.fullLeft()
-                    if c.board != boardnum.board:
+                    if not boardnum.compare(c):
                         boardnum.pickTwoOrFour()
                     display(boardnum, running)
                 elif key == 's':
                     c = boardnum.copy()
                     boardnum.fullDown()
-                    if c.board != boardnum.board:
+                    if not boardnum.compare(c):
                         boardnum.pickTwoOrFour()
                     display(boardnum, running)
                 elif key == 'd':
                     c = boardnum.copy()
                     boardnum.fullRight()
-                    if c.board != boardnum.board:
+                    if not boardnum.compare(c):
                         boardnum.pickTwoOrFour()
                     display(boardnum, running)
-
 
                 #This 'if' statement checks to see if the game is over or not
                 #      If playable, then continues the game
                 #      Else, runs the end game sequence where the display shows the game over and allows the user to choose if they want to play again or not
-                if boardnum.check():
-                    continue
-                else:
+                if not boardnum.check():
                     running = False
                     display(boardnum, running)
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
-                            if str(event.key) not in formats['buttons']:
+                            if event.type == pygame.KEYDOWN:
                                 key == formats['buttons'][str(event.key)]
                                 if key == 'n':
                                     pygame.quit()
                                     sys.exit()
                                 elif key == 'y':
                                     boardnum.define([[0] * 4, [0] * 4, [0] * 4,  [0] * 4])
-
                                     display(game1)
                                     playGame(game1)
-
                                 
 #Running the actual game
 if __name__ == '__main__':
