@@ -137,23 +137,18 @@ def display(boardnum, over_check):
 
 '''main game loop that will keep running as long as the tab is open and the game is playable'''
 def playGame(boardnum):
-
-
     #this while loop will keep playing unless:
     #     User Presses 'q' or the red 'x' at top right corner
     #     User Presses 'n' after game is over and wishes not to play again
-    moves = ['''w''', '''a''', '''s''', '''d''']
     running = True
     while True:
         for event in pygame.event.get():
-            #running = True
-            
             #If statement to see if user has pressed 'q' or the red 'x' in top right corner 
             #to know if they want to exit game
-            if event.type == QUIT or event.type == pygame.KEYDOWN and event.key == K_q:
-                    running = False
-                    pygame.quit()
-                    sys.exit()
+            if event.type == QUIT or (event.type == pygame.KEYDOWN and event.key == K_q):
+                running = False
+                pygame.quit()
+                sys.exit()
 
             #to stop overflow of data in game, when users press a non playable key, the game passes the data and continues the game
             elif event.type == pygame.KEYDOWN and str(event.key) not in formats['''buttons''']:
@@ -197,23 +192,23 @@ def playGame(boardnum):
                         boardnum.pickTwoOrFour()
                     display(boardnum, running)
 
-                #This 'if' statement checks to see if the game is over or not
-                #      If playable, then continues the game
-                #      Else, runs the end game sequence where the display shows the game over and allows the user to choose if they want to play again or not
-                if not boardnum.check():
-                    running = False
-                    display(boardnum, running)
-                    for event in pygame.event.get():
+            #This 'if' statement checks to see if the game is over or not
+            #      If playable, then continues the game
+            #      Else, runs the end game sequence where the display shows the game over and allows the user to choose if they want to play again or not
+            if not boardnum.check():
+                running = False
+                display(boardnum, running)
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
                         if event.type == pygame.KEYDOWN:
-                            if event.type == pygame.KEYDOWN:
-                                key == formats['buttons'][str(event.key)]
-                                if key == 'n':
-                                    pygame.quit()
-                                    sys.exit()
-                                elif key == 'y':
-                                    boardnum.define([[0] * 4, [0] * 4, [0] * 4,  [0] * 4])
-                                    display(game1)
-                                    playGame(game1)
+                            key == formats['buttons'][str(event.key)]
+                            if key == 'n':
+                                pygame.quit()
+                                sys.exit()
+                            elif key == 'y':
+                                boardnum.define([[0] * 4, [0] * 4, [0] * 4,  [0] * 4])
+                                display(game1)
+                                playGame(game1)
                                 
 #Running the actual game
 if __name__ == '__main__':
