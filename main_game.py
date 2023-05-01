@@ -149,7 +149,8 @@ def playGame(boardnum):
                 pygame.quit()
                 sys.exit()
 
-            #to stop overflow of data in game, when users press a non playable key, the game passes the data and continues the game
+            #to stop overflow of data in game, when users press a non playable key, the game 
+            #passes the data and continues the game
             elif event.type == pygame.KEYDOWN and str(event.key) not in formats['''buttons''']:
                 continue
 
@@ -193,7 +194,8 @@ def playGame(boardnum):
 
             #This 'if' statement checks to see if the game is over or not
             #      If playable, then continues the game
-            #      Else, runs the end game sequence where the display shows the game over and allows the user to choose if they want to play again or not
+            #      Else, runs the end game sequence where the display shows the game over and 
+            #            allows the user to choose if they want to play again or not
             if not boardnum.check():
                 running = False
                 display(boardnum, running)

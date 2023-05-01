@@ -62,7 +62,11 @@ class App2048:
             if self.board[y][x] == 0:
                 self.board[y][x] = random.choice((2, 4))
                 assigned = True
-    
+
+    '''This method will compare if the values on the board have changed
+    Reason why:
+        1. Determines if we add the pickTwoOrFour() after the move is done
+        2. Makes sure the user isn't cheating the game'''
     def compare(self, other):
         for y in range(4):
             for x in range(4):
