@@ -1,5 +1,4 @@
 '''This is the code that will launch and play the game 2048'''
-
 #These imported modules allow us to run the game and load all the necessary functions
 from game_logic import App2048
 import sys
@@ -198,17 +197,6 @@ def playGame(boardnum):
             if not boardnum.check():
                 running = False
                 display(boardnum, running)
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if event.type == pygame.KEYDOWN:
-                            key == formats['buttons'][str(event.key)]
-                            if key == 'n':
-                                pygame.quit()
-                                sys.exit()
-                            elif key == 'y':
-                                boardnum.define([[0] * 4, [0] * 4, [0] * 4,  [0] * 4])
-                                display(game1)
-                                playGame(game1)
                                 
 #Running the actual game
 if __name__ == '__main__':
